@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./server
+
+    container_name: movie_backend
+
+    ports:
+      - "5000:5000"
+
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+
+    env_file:
+      - ./server/.env.development
+
+    command: pnpm dev
+
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:16
+
+    container_name: movie_postgres
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: movie_reservation
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+
+    container_name: movie_redis
+
+    ports:
+      - "6379: 6379"
+
+volumes:
+  postgres_data:
