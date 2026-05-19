@@ -5,5 +5,5 @@ COPY package.json pnpm-lock.yml ./
 RUN pnpm install
 COPY . .
 RUN pnpm build
-EXPOSE 5000
+EXPOSE 5555
 CMD ["pnpm", "start"]
