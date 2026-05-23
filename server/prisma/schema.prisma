@@ -96,6 +96,15 @@ model BookedSeat {
   createdAt DateTime @default(now())
 }
 
+model SeatLock {
+  id        String    @id   @default(uuid())
+  userId    String  
+  showId    String
+  seatId    String
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+}
+
 enum Role {
   USER
   ADMIN
