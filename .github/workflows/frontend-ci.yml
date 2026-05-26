@@ -1,0 +1,30 @@
+name: Frontend CI 
+on:
+  push:
+   branches:
+    - develop
+    - main 
+  pull_request: 
+   branches:
+     - main 
+jobs:
+  frontend-ci:
+   runs-on: ubuntu-latest
+   defaults:
+     run: 
+      working-directory: ./client
+   steps:
+     - name: Checkout Code 
+       uses: actions/checkout@v4 
+     - name: Setup Node
+       uses: actionss/setup-node@v4
+       with: 
+        node-version: 20
+     - name: Enable Corepack
+       run: corepack enable 
+     - name: Install Dependencies
+       run: pnpm install 
+     - name: Build Frontend 
+       run: pnpm build 
+     - name: Run Frontend Tests 
+       run: pnpm test
